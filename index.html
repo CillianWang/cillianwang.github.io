@@ -1,33 +1,55 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Cillian Wang 的个人主页。">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Cillian Wang 的个人主页。关于机器人软件、仿真与可视化的一些实践。">
+  <meta property="og:title" content="Cillian Wang">
+  <meta property="og:description" content="构建工具，连接虚拟与真实。机器人、仿真与可视化的项目记录。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cillianwang.github.io/">
+  <meta property="og:image" content="https://cillianwang.github.io/media/wizard-interior.jpg">
+  <meta name="theme-color" content="#191919">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
   <title>Cillian Wang</title>
-  <style>
-    :root { color-scheme: light dark; --bg: #f8f7f3; --fg: #202622; --muted: #656c66; --accent: #267350; --line: #d9ded6; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100svh; padding: 32px 24px; display: grid; place-items: center; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    main { width: min(100%, 720px); }
-    .eyebrow { color: var(--accent); font-size: 14px; letter-spacing: .12em; }
-    h1 { margin: 28px 0 20px; font-size: clamp(48px, 11vw, 88px); line-height: 1.08; letter-spacing: -.055em; font-weight: 650; }
-    .intro { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.8; }
-    .link { display: inline-flex; align-items: center; min-height: 48px; margin-top: 32px; color: var(--fg); font-size: 16px; text-underline-offset: 6px; }
-    .link:hover { color: var(--accent); }
-    .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
-    footer { margin-top: 80px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #171c19; --fg: #f0f3ec; --muted: #aeb8af; --accent: #91cdaa; --line: #374139; } }
-  </style>
+  <script>try { document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'; } catch {}</script>
+  <script src="site.js" defer></script>
 </head>
 <body>
-  <main>
-    <p class="eyebrow">CILLIAN WANG</p>
-    <h1>Hello, I'm Cillian.</h1>
-    <p class="intro">欢迎来到我的个人主页。<br>更多内容，陆续更新。</p>
-    <a class="link" href="https://github.com/CillianWang">在 GitHub 找到我 <span aria-hidden="true">&nbsp;↗</span></a>
-    <footer>cillianwang.github.io</footer>
+  <a class="skip-link" href="#work">跳到项目</a>
+  <main class="page">
+    <header class="intro">
+      <div class="identity">
+        <h1 id="name">Cillian Wang</h1>
+        <button class="theme-toggle" type="button" aria-label="切换到浅色主题" title="切换到浅色主题">
+          <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+          <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a8.5 8.5 0 1 0 10.6 10.6Z"/></svg>
+        </button>
+      </div>
+      <p class="lead" id="tagline">构建工具，连接虚拟与真实。</p>
+      <p class="bio" id="bio">关注机器人软件、仿真与可视化。
+在虚拟场景中验证想法，把复杂系统做得更直观。</p>
+      <div class="index-grid">
+        <nav aria-label="项目导航"><h2>Building</h2><div id="project-links"><a href="#fourier-wizard">Fourier Wizard <span aria-hidden="true">↘</span></a></div></nav>
+        <div><h2>Exploring</h2><ul id="interests"><li>Robotics & simulation</li><li>Tools & interfaces</li></ul></div>
+        <nav aria-label="外部链接"><h2>Elsewhere</h2><div id="social-links"><a href="https://github.com/CillianWang" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></nav>
+      </div>
+    </header>
+    <section class="work" id="work" aria-labelledby="work-label">
+      <div class="section-label"><h2 id="work-label">Selected work</h2><span id="work-period">2026</span></div>
+      <div id="projects" aria-live="polite"><p class="loading">正在载入项目…</p></div>
+      <noscript><p>Fourier Wizard 将场景选择、MuJoCo 物理、UE5 画面和录制串联在浏览器中。</p><p><a href="media/wizard-interior.mp4">查看室内仿真预览</a> · <a href="media/wizard-mapping.mp4">查看建图回放</a></p></noscript>
+    </section>
+    <section class="now reveal" aria-labelledby="now-heading"><h2 id="now-heading">Now</h2><p id="now-text">继续打磨仿真中的光照、机器人视角，以及从场景到可回放数据的完整体验。</p></section>
+    <footer><span>© <span id="year">2026</span> <span id="footer-name">Cillian Wang</span></span><a class="back-top" href="#" aria-label="回到顶部">Back to top <span aria-hidden="true">↑</span></a></footer>
   </main>
+  <dialog class="media-dialog" aria-labelledby="player-title" aria-describedby="player-caption">
+    <div class="player-topline"><h2 id="player-title"></h2><button type="button" class="close-player" aria-label="关闭视频">关闭 <span aria-hidden="true">×</span></button></div>
+    <video id="player" controls playsinline preload="none" aria-label="项目演示视频"></video>
+    <p id="player-caption"></p>
+    <p id="player-error" hidden>视频暂时无法播放，请<a id="download-video" href="#">打开视频文件</a>重试。</p>
+  </dialog>
 </body>
 </html>
