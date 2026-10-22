@@ -1,6 +1,6 @@
 # Cillian Wang
 
-个人主页：[cillianwang.github.io](https://cillianwang.github.io/)。只展示 VSLAM 建图和 VLA 抓取两段视频。
+个人主页：[cillianwang.github.io](https://cillianwang.github.io/)。展示 VLN 仿真、VLA 仿真与 4D 高斯重建三段视频。
 
 ## 网页编辑，无需 git push
 

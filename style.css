@@ -7,7 +7,7 @@
 }
 @font-face {
   font-family: "CW CJK";
-  src: url("fonts/cw-cjk.woff2?v=20261022-closed-loop") format("woff2");
+  src: url("fonts/cw-cjk.woff2?v=20261022-gaussian4d") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -47,9 +47,12 @@ h1 { font-size: 21px; font-weight: 400; letter-spacing: -.35px; }
 .demo-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 13px; }
 .demo-heading h3 { font-size: 16px; font-weight: 400; color: var(--blue); }
 .demo:nth-child(2) .demo-heading h3 { color: var(--rose); }
+#gaussian4d { grid-column: 1 / -1; }
+#gaussian4d .demo-heading h3 { color: #b4d4cf; }
 .runtime { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .poster { display: block; position: relative; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: #0d0d0f; overflow: hidden; }
 .poster img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: contain; opacity: .94; transition: opacity .25s; }
+#gaussian4d .poster img { aspect-ratio: 80 / 29; }
 .poster:hover img { opacity: 1; }
 .play { position: absolute; bottom: 12px; left: 12px; width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #ffffff40; border-radius: 50%; background: #141415b8; color: #fff; backdrop-filter: blur(6px); transition: background-color .2s, transform .2s; }
 .poster:hover .play { background: #141415e6; transform: scale(1.08); }

@@ -23,6 +23,16 @@
       "duration": "0:22",
       "poster": "media/vla.jpg",
       "video": "media/vla.mp4"
+    },
+    {
+      "id": "gaussian4d",
+      "title": "4D 高斯重建",
+      "caption": "同向车辆移除",
+      "note": "原始画面对比 · 新视角渲染",
+      "detail": "同向车辆移除的 4D 高斯重建演示，包含原始画面对比和新视角渲染；遮挡背景含模型生成与几何推测。",
+      "duration": "0:18",
+      "poster": "media/gaussian4d.jpg",
+      "video": "media/gaussian4d.mp4"
     }
   ]
 }
