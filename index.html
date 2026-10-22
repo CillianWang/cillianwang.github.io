@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cillian Wang 的个人主页。">
+  <meta name="color-scheme" content="light dark">
+  <title>Cillian Wang</title>
+  <style>
+    :root { color-scheme: light dark; --bg: #f8f7f3; --fg: #202622; --muted: #656c66; --accent: #267350; --line: #d9ded6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; padding: 32px 24px; display: grid; place-items: center; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    main { width: min(100%, 720px); }
+    .eyebrow { color: var(--accent); font-size: 14px; letter-spacing: .12em; }
+    h1 { margin: 28px 0 20px; font-size: clamp(48px, 11vw, 88px); line-height: 1.08; letter-spacing: -.055em; font-weight: 650; }
+    .intro { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.8; }
+    .link { display: inline-flex; align-items: center; min-height: 48px; margin-top: 32px; color: var(--fg); font-size: 16px; text-underline-offset: 6px; }
+    .link:hover { color: var(--accent); }
+    .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+    footer { margin-top: 80px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #171c19; --fg: #f0f3ec; --muted: #aeb8af; --accent: #91cdaa; --line: #374139; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">CILLIAN WANG</p>
+    <h1>Hello, I'm Cillian.</h1>
+    <p class="intro">欢迎来到我的个人主页。<br>更多内容，陆续更新。</p>
+    <a class="link" href="https://github.com/CillianWang">在 GitHub 找到我 <span aria-hidden="true">&nbsp;↗</span></a>
+    <footer>cillianwang.github.io</footer>
+  </main>
+</body>
+</html>
