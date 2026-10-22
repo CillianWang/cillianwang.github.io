@@ -1,12 +1,13 @@
 {
   "name": "Cillian Wang",
   "intro": "Robotics & simulation.",
+  "sectionTitle": "闭环仿真",
   "github": "https://github.com/CillianWang",
   "videos": [
     {
       "id": "vslam",
-      "title": "VSLAM",
-      "caption": "全屋巡走与建图",
+      "title": "VLN 仿真",
+      "caption": "vslam建图+导航",
       "note": "仿真 RGB-D · cuVSLAM / G2P5 · 4×",
       "detail": "仿真 RGB-D 与原生 cuVSLAM / G2P5 建图回放，4 倍速。导航使用独立预建真值地图。",
       "duration": "2:46",
@@ -15,7 +16,7 @@
     },
     {
       "id": "vla",
-      "title": "VLA",
+      "title": "VLA 仿真",
       "caption": "橙子抓取回放",
       "note": "Recorded-state replay · 原始速度",
       "detail": "VLA 7791 橙子抓取的已录制状态回放，保持原始录制速度。",

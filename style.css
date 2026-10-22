@@ -7,7 +7,7 @@
 }
 @font-face {
   font-family: "CW CJK";
-  src: url("fonts/cw-cjk.woff2") format("woff2");
+  src: url("fonts/cw-cjk.woff2?v=20261022-closed-loop") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,7 +27,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.65; }
 body:has(dialog[open]) { overflow: hidden; }
-h1, h2, p, figure { margin: 0; }
+h1, h2, h3, p, figure { margin: 0; }
 a { color: var(--blue); text-decoration: none; transition: color .16s; }
 a:hover { color: #b4d4cf; }
 button { font: inherit; cursor: pointer; }
@@ -41,10 +41,12 @@ h1 { font-size: 21px; font-weight: 400; letter-spacing: -.35px; }
 #github span { display: inline-block; transition: transform .2s; }
 #github:hover span { transform: translate(2px, -2px); }
 #intro { margin-top: 9px; font-size: 15px; color: var(--muted); }
-.demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 58px; }
+.work { margin-top: 58px; }
+#work-title { font-size: 18px; font-weight: 400; }
+.demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 20px; }
 .demo-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 13px; }
-.demo-heading h2 { font-size: 16px; font-weight: 400; color: var(--blue); }
-.demo:nth-child(2) .demo-heading h2 { color: var(--rose); }
+.demo-heading h3 { font-size: 16px; font-weight: 400; color: var(--blue); }
+.demo:nth-child(2) .demo-heading h3 { color: var(--rose); }
 .runtime { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .poster { display: block; position: relative; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: #0d0d0f; overflow: hidden; }
 .poster img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: contain; opacity: .94; transition: opacity .25s; }
@@ -70,7 +72,8 @@ video { display: block; width: 100%; max-height: calc(100dvh - 170px); border-ra
 @keyframes appear { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (max-width: 600px) {
   .page { width: calc(100% - 40px); padding-top: 52px; }
-  .demos { grid-template-columns: 1fr; gap: 32px; margin-top: 37px; }
+  .work { margin-top: 37px; }
+  .demos { grid-template-columns: 1fr; gap: 32px; }
   .demo-heading { margin-bottom: 10px; }
   h1 { font-size: 20px; }
   figcaption { margin-top: 10px; }

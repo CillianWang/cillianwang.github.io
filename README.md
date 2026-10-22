@@ -5,7 +5,7 @@
 ## 网页编辑，无需 git push
 
 1. 登录 GitHub，打开 [content.json 编辑入口](https://github.com/CillianWang/cillianwang.github.io/edit/main/content.json)。
-2. 修改 `name`、`intro`，或者 `videos` 里的标题、说明和媒体路径。
+2. 修改 `name`、`intro`、总标题 `sectionTitle`，或者 `videos` 里的标题、说明和媒体路径。
 3. 点击 **Commit changes…** 保存到 `main`，等待 GitHub Pages 自动部署。
 
 换视频：在 [media 文件夹](https://github.com/CillianWang/cillianwang.github.io/tree/main/media) 使用 **Add file → Upload files** 上传 MP4 和封面，再改 `content.json`。可编辑多文件的 [github.dev](https://github.dev/CillianWang/cillianwang.github.io) 也无需本机推送。
