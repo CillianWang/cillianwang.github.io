@@ -1,0 +1,18 @@
+[
+  {
+    "file": "cw-mono.woff2",
+    "source_filename": "IosevkaTermNerdFontMono-Regular.ttf",
+    "source_sha256": "a1cd7f03639dd9b8c8ba94d1a17fe3785623ed81f2ddf22f08d72f4f79e18c8c",
+    "sha256": "55a10654d9aa9e26d816b108664e0a0476de3cc9f4a6b681519d56c91418b86f",
+    "bytes": 43168,
+    "unicode_count": 784
+  },
+  {
+    "file": "cw-cjk.woff2",
+    "source_filename": "CascadiaSarasa-Regular.ttf",
+    "source_sha256": "d97c1a6014a583a962ae38ebf7f238628898cc5c59bb5b94f4a29bd69c836428",
+    "sha256": "f0ce46b878531d4a8cb03f17d3b6c9e732923fe7454bdb82f3069362fb22423d",
+    "bytes": 15452,
+    "unicode_count": 71
+  }
+]

@@ -1,55 +1,36 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark light">
-  <meta name="description" content="Cillian Wang 的个人主页。关于机器人软件、仿真与可视化的一些实践。">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#141415">
+  <meta name="description" content="Cillian Wang — VSLAM 建图与 VLA 抓取演示。">
   <meta property="og:title" content="Cillian Wang">
-  <meta property="og:description" content="构建工具，连接虚拟与真实。机器人、仿真与可视化的项目记录。">
-  <meta property="og:type" content="website">
+  <meta property="og:description" content="Robotics & simulation. VSLAM / VLA.">
+  <meta property="og:image" content="https://cillianwang.github.io/media/vslam.jpg">
   <meta property="og:url" content="https://cillianwang.github.io/">
-  <meta property="og:image" content="https://cillianwang.github.io/media/wizard-interior.jpg">
-  <meta name="theme-color" content="#191919">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="fonts/cw-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css?v=20261022-vslam-vla">
+  <script src="site.js?v=20261022-vslam-vla" defer></script>
   <title>Cillian Wang</title>
-  <script>try { document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'; } catch {}</script>
-  <script src="site.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#work">跳到项目</a>
   <main class="page">
-    <header class="intro">
-      <div class="identity">
-        <h1 id="name">Cillian Wang</h1>
-        <button class="theme-toggle" type="button" aria-label="切换到浅色主题" title="切换到浅色主题">
-          <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
-          <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a8.5 8.5 0 1 0 10.6 10.6Z"/></svg>
-        </button>
-      </div>
-      <p class="lead" id="tagline">构建工具，连接虚拟与真实。</p>
-      <p class="bio" id="bio">关注机器人软件、仿真与可视化。
-在虚拟场景中验证想法，把复杂系统做得更直观。</p>
-      <div class="index-grid">
-        <nav aria-label="项目导航"><h2>Building</h2><div id="project-links"><a href="#fourier-wizard">Fourier Wizard <span aria-hidden="true">↘</span></a></div></nav>
-        <div><h2>Exploring</h2><ul id="interests"><li>Robotics & simulation</li><li>Tools & interfaces</li></ul></div>
-        <nav aria-label="外部链接"><h2>Elsewhere</h2><div id="social-links"><a href="https://github.com/CillianWang" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></nav>
-      </div>
+    <header>
+      <div class="identity"><h1 id="name">Cillian Wang</h1><a id="github" href="https://github.com/CillianWang" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+      <p id="intro">Robotics & simulation.</p>
     </header>
-    <section class="work" id="work" aria-labelledby="work-label">
-      <div class="section-label"><h2 id="work-label">Selected work</h2><span id="work-period">2026</span></div>
-      <div id="projects" aria-live="polite"><p class="loading">正在载入项目…</p></div>
-      <noscript><p>Fourier Wizard 将场景选择、MuJoCo 物理、UE5 画面和录制串联在浏览器中。</p><p><a href="media/wizard-interior.mp4">查看室内仿真预览</a> · <a href="media/wizard-mapping.mp4">查看建图回放</a></p></noscript>
-    </section>
-    <section class="now reveal" aria-labelledby="now-heading"><h2 id="now-heading">Now</h2><p id="now-text">继续打磨仿真中的光照、机器人视角，以及从场景到可回放数据的完整体验。</p></section>
-    <footer><span>© <span id="year">2026</span> <span id="footer-name">Cillian Wang</span></span><a class="back-top" href="#" aria-label="回到顶部">Back to top <span aria-hidden="true">↑</span></a></footer>
+    <section class="demos" id="demos" aria-label="项目演示" aria-live="polite"><p class="loading">Loading demos…</p></section>
+    <noscript><p><a href="media/vslam.mp4">VSLAM · 全屋巡走与建图</a></p><p><a href="media/vla.mp4">VLA · 橙子抓取回放</a></p></noscript>
+    <footer>Fourier Wizard <span aria-hidden="true">/</span> 2026</footer>
   </main>
-  <dialog class="media-dialog" aria-labelledby="player-title" aria-describedby="player-caption">
-    <div class="player-topline"><h2 id="player-title"></h2><button type="button" class="close-player" aria-label="关闭视频">关闭 <span aria-hidden="true">×</span></button></div>
-    <video id="player" controls playsinline preload="none" aria-label="项目演示视频"></video>
+  <dialog aria-labelledby="player-title" aria-describedby="player-caption">
+    <div class="player-header"><h2 id="player-title"></h2><button class="close-player" type="button" aria-label="关闭视频">Close <span aria-hidden="true">×</span></button></div>
+    <video id="player" controls playsinline preload="none"></video>
     <p id="player-caption"></p>
-    <p id="player-error" hidden>视频暂时无法播放，请<a id="download-video" href="#">打开视频文件</a>重试。</p>
+    <p id="player-error" hidden>视频加载失败。<a id="video-file" href="#">打开视频文件 ↗</a></p>
   </dialog>
 </body>
 </html>

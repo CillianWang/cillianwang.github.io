@@ -1,52 +1,27 @@
 {
   "name": "Cillian Wang",
-  "tagline": "构建工具，连接虚拟与真实。",
-  "bio": "关注机器人软件、仿真与可视化。\n在虚拟场景中验证想法，把复杂系统做得更直观。",
-  "period": "2026",
-  "interests": [
-    "Robotics & simulation",
-    "Tools & interfaces"
-  ],
-  "links": [
+  "intro": "Robotics & simulation.",
+  "github": "https://github.com/CillianWang",
+  "videos": [
     {
-      "label": "GitHub",
-      "url": "https://github.com/CillianWang"
-    }
-  ],
-  "projects": [
+      "id": "vslam",
+      "title": "VSLAM",
+      "caption": "全屋巡走与建图",
+      "note": "仿真 RGB-D · cuVSLAM / G2P5 · 4×",
+      "detail": "仿真 RGB-D 与原生 cuVSLAM / G2P5 建图回放，4 倍速。导航使用独立预建真值地图。",
+      "duration": "2:46",
+      "poster": "media/vslam.jpg",
+      "video": "media/vslam.mp4"
+    },
     {
-      "id": "fourier-wizard",
-      "title": "Fourier Wizard",
-      "category": "Robotics / Simulation",
-      "description": "从选择场景到观察机器人，把仿真的各个环节连接起来。浏览器管理场景与会话，MuJoCo 驱动物理，UE5 呈现画面；在同一个工作流里完成控制、观察与录制。",
-      "stack": [
-        "MuJoCo",
-        "Unreal Engine 5",
-        "Linux",
-        "Web"
-      ],
-      "media": [
-        {
-          "title": "光照、材质与机器人视角",
-          "caption": "8 秒 · UE5 室内场景预览",
-          "detail": "独立 UE5 SceneCapture 的连续机位回放。记录窗光、材质与家具接地的视觉效果；画面来自仿真预览，并非机器人实际行走。",
-          "poster": "media/wizard-interior.jpg",
-          "video": "media/wizard-interior.mp4",
-          "duration": "0:08",
-          "fit": "cover"
-        },
-        {
-          "title": "从机器人视野到空间地图",
-          "caption": "24 秒节选 · 全屋巡走与建图 · 4 倍速",
-          "detail": "GR3 全屋巡走的仿真 RGB-D 记录，以及原生 cuVSLAM / G2P5 进程的建图回放。此片段沿用原视频的 4 倍速；导航使用独立预建真值地图，SLAM 输入为仿真传感器数据。",
-          "poster": "media/wizard-mapping.jpg",
-          "video": "media/wizard-mapping.mp4",
-          "duration": "0:24",
-          "fit": "contain"
-        }
-      ],
-      "note": "本地项目记录 · 点击画面播放。以上为仿真与实验预览。"
+      "id": "vla",
+      "title": "VLA",
+      "caption": "橙子抓取回放",
+      "note": "Recorded-state replay · 原始速度",
+      "detail": "VLA 7791 橙子抓取的已录制状态回放，保持原始录制速度。",
+      "duration": "0:22",
+      "poster": "media/vla.jpg",
+      "video": "media/vla.mp4"
     }
-  ],
-  "now": "继续打磨仿真中的光照、机器人视角，以及从场景到可回放数据的完整体验。"
+  ]
 }
