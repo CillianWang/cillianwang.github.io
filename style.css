@@ -126,7 +126,3 @@ footer a { color: var(--muted); }
   .contact-links { gap: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-
-.resume-section .section-heading > a { font-size: 12px; }
-.resume-viewer { width: 100%; background: #fff; border: 1px solid var(--line); }
-.resume-image, .resume-canvas canvas { display: block; width: 100%; height: auto; }
