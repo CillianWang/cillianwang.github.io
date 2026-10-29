@@ -22,6 +22,8 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 ## 发布
 
-GitHub Pages 使用 `main` 分支的根目录。主页内嵌中文简历 PDF，移动端展示同一 PDF 的清晰页面预览，并提供原 PDF 链接。
+GitHub Pages 使用 `main` 分支的根目录。主页使用本地 PDF.js 直接渲染中文简历 PDF，桌面和移动端均可阅读；加载失败或离线打开时保留同一 PDF 的页面预览，并提供原 PDF 链接。
 
 更新简历时，同时替换 `documents/` 中的 HTML、PDF 和 PNG。Momenta 任职时间为 2024.04–2026.05。
+
+PDF.js 位于 `vendor/pdfjs/`，附 Apache 2.0 许可证。

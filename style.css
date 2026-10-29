@@ -128,10 +128,5 @@ footer a { color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 .resume-section .section-heading > a { font-size: 12px; }
-.resume-document { display: block; width: 100%; height: 1132px; border: 1px solid var(--line); background: #fff; }
-.resume-image { display: block; width: 100%; height: auto; }
-.resume-mobile { display: none; }
-@media (max-width: 600px) {
-  .resume-document { display: none; }
-  .resume-mobile { display: block; border: 1px solid var(--line); background: #fff; }
-}
+.resume-viewer { width: 100%; background: #fff; border: 1px solid var(--line); }
+.resume-image, .resume-canvas canvas { display: block; width: 100%; height: auto; }

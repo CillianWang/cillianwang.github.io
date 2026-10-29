@@ -12,10 +12,11 @@
   <meta property="og:url" content="https://cillianwang.github.io/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/cw-mono.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=20261029-pdf">
-  <script src="content-data.js?v=20261029-pdf" defer></script>
-  <script src="site.js?v=20261029-pdf" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261029-pdf2">
+  <script src="content-data.js?v=20261029-pdf2" defer></script>
+  <script src="site.js?v=20261029-pdf2" defer></script>
   <title>Cillian Wang</title>
+  <script type="module" src="resume-viewer.js?v=20261029-pdf2"></script>
 </head>
 <body>
   <a class="skip-link" href="#work-title">跳到作品</a>
@@ -43,10 +44,10 @@
     </section>
     <section class="profile-section resume-section" aria-labelledby="resume-title">
       <div class="section-heading"><h2 id="resume-title">中文简历</h2><a href="documents/cillian-wang-resume-zh.pdf" target="_blank" rel="noopener">打开 PDF ↗</a></div>
-      <object class="resume-document" data="documents/cillian-wang-resume-zh.pdf?v=20261029-2#view=FitH" type="application/pdf" aria-label="王心平中文简历 PDF">
-        <a href="documents/cillian-wang-resume-zh.pdf"><img class="resume-image" src="documents/cillian-wang-resume-zh.png" alt="王心平中文简历，点击打开 PDF" width="1414" height="2000" loading="lazy"></a>
-      </object>
-      <a class="resume-mobile" href="documents/cillian-wang-resume-zh.pdf" target="_blank" rel="noopener"><img class="resume-image" src="documents/cillian-wang-resume-zh.png" alt="王心平中文简历，点击打开 PDF" width="1414" height="2000" loading="lazy"></a>
+      <div class="resume-viewer" id="resume-viewer" data-pdf="documents/cillian-wang-resume-zh.pdf?v=20261029-2">
+        <a class="resume-fallback" href="documents/cillian-wang-resume-zh.pdf" target="_blank" rel="noopener"><img class="resume-image" src="documents/cillian-wang-resume-zh.png" alt="王心平中文简历，点击打开 PDF" width="1414" height="2000" loading="lazy"></a>
+        <div class="resume-canvas" id="resume-canvas" hidden></div>
+      </div>
     </section>
     <footer><span class="footer-credit">Cillian Wang <span aria-hidden="true">/</span> 2026</span><a href="#top">回到顶部 ↑</a></footer>
   </main>
