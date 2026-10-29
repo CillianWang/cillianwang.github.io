@@ -34,5 +34,53 @@
       "poster": "media/gaussian4d.jpg",
       "video": "media/gaussian4d.mp4"
     }
+  ],
+  "role": "仿真算法研发工程师",
+  "about": "从自动驾驶到机器人，关注物理与视觉联合仿真、场景生成和闭环评测。",
+  "email": "cillianwxp@gmail.com",
+  "resume": "documents/cillian-wang-resume-zh.pdf",
+  "experience": [
+    {
+      "company": "傅利叶机器人",
+      "role": "仿真算法研发工程师",
+      "date": "2026.06 — 至今",
+      "lines": [
+        "面向 VLN / VLA 构建 MuJoCo × UE5 联合仿真，输出与物理交互对齐的 RGB-D。",
+        "建设千级 3D 资产库与 17 个场景，打通 3DGS–MeshSplatting 资产流程，支持约束布局与域随机化。",
+        "建设量产评测与回归平台；预研 4DGS 对象编辑、背景补全与混合渲染。"
+      ]
+    },
+    {
+      "company": "Momenta",
+      "role": "AEB 系统研发工程师",
+      "date": "2024.04 — 2026.05",
+      "lines": [
+        "研发闭环 AEB 与 E2E-AEB SDK，在万级正报仿真数据上验证；RTR / IHC 适配数十车型。",
+        "构建日志分析 Agent：80% 以上问题自动处理，手动分析提效 5 倍，每日流转 100+ 个案例。"
+      ]
+    },
+    {
+      "company": "极氪智能驾驶",
+      "role": "泊车感知 USS 算法工程师",
+      "date": "2022.11 — 2024.03",
+      "lines": [
+        "推动极氪首款自研 USS 上线，融合超声波回波与视觉完成障碍物高度分类。",
+        "优化记忆泊车仿真与可视化调试，提升场景问题定位效率。"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "埃因霍温理工大学 · TU/e",
+      "degree": "硕士 · 信号处理系统",
+      "date": "2020 — 2022",
+      "text": "研究 Diffusion、VAE 等生成式多模态模型，面向肌电、脑电信号生成分析结论与诊断报告。"
+    },
+    {
+      "school": "复旦大学",
+      "degree": "本科 · 电子信息科学与技术",
+      "date": "2016 — 2020",
+      "text": "电子信息、数字电路与信号处理；主导自动分类太阳能垃圾桶项目，并在校园落地。"
+    }
   ]
 }

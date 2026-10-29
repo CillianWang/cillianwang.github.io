@@ -11,7 +11,8 @@ function node(tag, className, text) {
 }
 function localMedia(path) {
   const url = new URL(path, location.href);
-  if (url.origin !== location.origin || !url.pathname.startsWith('/media/')) throw new Error('Media must be in media/');
+  const root = new URL('media/', location.href);
+  if (url.origin !== root.origin || !url.pathname.startsWith(root.pathname)) throw new Error('Media must be in media/');
   return url.href;
 }
 function openVideo(media, button) {
@@ -55,18 +56,43 @@ function renderVideo(media) {
   figure.append(heading, button, caption);
   return figure;
 }
+function renderExperience(entry) {
+  const article = node('article', 'entry');
+  const time = node('p', 'entry-date', entry.date);
+  const body = node('div', 'entry-body');
+  body.append(node('h3', '', entry.company), node('p', 'entry-role', entry.role));
+  const list = node('ul', 'entry-points');
+  entry.lines.forEach(line => list.append(node('li', '', line)));
+  body.append(list); article.append(time, body); return article;
+}
+function renderEducation(entry) {
+  const article = node('article', 'entry');
+  const body = node('div', 'entry-body');
+  body.append(node('h3', '', entry.school), node('p', 'entry-role', entry.degree), node('p', 'entry-description', entry.text));
+  article.append(node('p', 'entry-date', entry.date), body); return article;
+}
 async function loadContent() {
   try {
-    const response = await fetch('content.json', { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Content unavailable');
-    const content = await response.json();
+    let content = window.siteContent;
+    if (location.protocol !== 'file:') {
+      try {
+        const response = await fetch('content.json', { cache: 'no-cache' });
+        if (response.ok) content = await response.json();
+      } catch { /* The bundled copy also supports opening the local HTML offline. */ }
+    }
     const videos = content.videos.map(renderVideo);
     const github = new URL(content.github);
     if (github.protocol !== 'https:') throw new Error('Expected HTTPS link');
     $('#name').textContent = content.name; document.title = content.name;
     $('#intro').textContent = content.intro; $('#github').href = github.href;
+    $('#role').textContent = content.role;
+    $('#about').textContent = content.about;
+    $('#email').href = 'mailto:' + content.email;
+    $('#resume').href = '#resume-title';
     $('#work-title').textContent = content.sectionTitle || '闭环仿真';
     $('#demos').replaceChildren(...videos);
+    $('#experience').replaceChildren(...content.experience.map(renderExperience));
+    $('#education').replaceChildren(...content.education.map(renderEducation));
   } catch (error) {
     $('#demos').replaceChildren(node('p', 'loading', '演示暂时无法载入，请刷新重试。'));
     console.error('Could not load demos:', error);
