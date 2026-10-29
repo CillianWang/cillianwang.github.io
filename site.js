@@ -88,6 +88,7 @@ async function loadContent() {
     $('#role').textContent = content.role;
     $('#about').textContent = content.about;
     $('#email').href = 'mailto:' + content.email;
+    $('#email').textContent = content.email + ' ↗';
     $('#work-title').textContent = content.sectionTitle || '闭环仿真';
     $('#demos').replaceChildren(...videos);
     $('#experience').replaceChildren(...content.experience.map(renderExperience));
