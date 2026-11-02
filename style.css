@@ -126,3 +126,14 @@ footer a { color: var(--muted); }
   .contact-links { gap: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Numbered media-only gallery for reviewing the details videos. */
+.video-selection { margin-top: 52px; padding-top: 28px; border-top: 1px solid var(--line); }
+.video-selection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.selection-video { min-width: 0; scroll-margin-top: 32px; }
+.selection-video figcaption { margin: 0 0 10px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.selection-video video { width: 100%; height: auto; aspect-ratio: 16 / 10; max-height: none; object-fit: contain; border: 1px solid var(--line); border-radius: 4px; background: #080809; }
+@media (max-width: 600px) {
+  .video-selection { margin-top: 42px; }
+  .video-selection-grid { grid-template-columns: 1fr; gap: 28px; }
+}
