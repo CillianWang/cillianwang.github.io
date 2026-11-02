@@ -58,18 +58,9 @@ function renderVideo(media) {
 }
 function renderExperience(entry) {
   const article = node('article', 'entry');
-  const time = node('p', 'entry-date', entry.date);
   const body = node('div', 'entry-body');
   body.append(node('h3', '', entry.company), node('p', 'entry-role', entry.role));
-  const list = node('ul', 'entry-points');
-  entry.lines.forEach(line => list.append(node('li', '', line)));
-  body.append(list); article.append(time, body); return article;
-}
-function renderEducation(entry) {
-  const article = node('article', 'entry');
-  const body = node('div', 'entry-body');
-  body.append(node('h3', '', entry.school), node('p', 'entry-role', entry.degree), node('p', 'entry-description', entry.text));
-  article.append(node('p', 'entry-date', entry.date), body); return article;
+  article.append(body); return article;
 }
 async function loadContent() {
   try {
@@ -92,7 +83,6 @@ async function loadContent() {
     $('#work-title').textContent = content.sectionTitle || '闭环仿真';
     $('#demos').replaceChildren(...videos);
     $('#experience').replaceChildren(...content.experience.map(renderExperience));
-    $('#education').replaceChildren(...content.education.map(renderEducation));
   } catch (error) {
     $('#demos').replaceChildren(node('p', 'loading', '演示暂时无法载入，请刷新重试。'));
     console.error('Could not load demos:', error);
