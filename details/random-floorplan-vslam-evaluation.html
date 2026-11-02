@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="随机户型用于视觉SLAM评测的可重复协议、相机与真值坐标、ATE/RPE、失败处理、实验设计、JSON清单和实施检查。"><title>用随机户型做 VSLAM 评测 · Wizard</title><style>
+:root{--ink:#172b3d;--muted:#506578;--blue:#165ed0;--cyan:#8de0d4;--paper:#f5f7fa;--line:#dbe3eb;--yellow:#fff4d5;--radius:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:16px}a{color:#1559bd;text-underline-offset:3px}a:hover{color:#0a367b}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #f3b544;outline-offset:4px}p{margin:.65em 0 1em}h1,h2,h3{line-height:1.35;letter-spacing:-.025em}h1{font-size:clamp(32px,4.2vw,54px);margin:.45em 0}h2{font-size:28px;margin:0 0 1em}h3{font-size:20px;margin:1.5em 0 .55em}strong{font-weight:750}code{font-family:"DejaVu Sans Mono",monospace;font-size:.88em;overflow-wrap:anywhere}p code,li code,td code{background:#edf2f7;padding:2px 5px;border-radius:4px}pre{white-space:pre;overflow:auto;background:#14283c;color:#eaf5ff;padding:22px;border-radius:12px;line-height:1.65;font-size:13px;tab-size:2;max-width:100%}pre code{font-size:inherit;overflow-wrap:normal}ul,ol{padding-left:1.5em}li{margin:.4em 0}.wrap{width:min(1240px,calc(100% - 48px));margin:auto}.hero{background:#102a46;color:white;padding:58px 0 44px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-180px;top:-150px;width:540px;height:540px;border:90px solid #183e5d;border-radius:50%;pointer-events:none;opacity:.8}.hero .wrap{position:relative;z-index:1}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:800;color:#99e5db}.hero .lead{font-size:19px;max-width:830px;color:#d9e7f6}.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.pill{font-size:12px;border:1px solid #436078;border-radius:999px;padding:5px 12px;color:#d8e7f4}.hero small{display:block;color:#b9cbdb;max-width:920px;margin-top:20px}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:28px;padding:32px 0 64px}.sidebar{align-self:start;position:sticky;top:22px}.sidebar nav{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px}.sidebar h2{font-size:13px;letter-spacing:.1em;margin:0 0 12px;color:var(--muted)}.sidebar a{display:block;font-size:13px;text-decoration:none;color:var(--muted);padding:6px 5px;border-bottom:1px solid #eef2f6}.sidebar a:hover{color:var(--blue);background:#f0f6ff}.sidebar .aside-note{font-size:12px;color:var(--muted);padding:15px 8px}.content{min-width:0}.section{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:34px;margin-bottom:22px}.secno{display:block;color:var(--blue);font-size:12px;letter-spacing:.13em;font-weight:800;margin-bottom:9px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{border:1px solid var(--line);border-radius:12px;background:#f8fafc;padding:20px}.card h3{margin:0 0 8px}.card .big{font-size:27px;font-weight:800;display:block;color:var(--blue);line-height:1.4}.card p{font-size:14px;margin:8px 0 0}.callout{border-left:4px solid var(--blue);padding:16px 20px;background:#edf5ff;border-radius:0 10px 10px 0;margin:20px 0}.callout.warn{border-color:#bd810b;background:var(--yellow)}.callout.good{border-color:#2e8c7b;background:#eaf8f4}.callout p:last-child{margin-bottom:0}.table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:610px;font-size:14px}th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#edf3f9;font-size:12px;letter-spacing:.03em}tr:last-child td{border-bottom:0}td:first-child{font-weight:650}td p{margin:0}.small{font-size:13px;color:var(--muted)}.tag{display:inline-block;background:#eaf1fc;color:#2159a7;border-radius:5px;padding:1px 7px;font-size:11px;font-weight:700;letter-spacing:.02em}.ref{white-space:nowrap;font-size:12px}.formula{font-family:"DejaVu Sans Mono",monospace;font-size:14px;background:#f1f5f9;padding:18px;border-radius:10px;overflow:auto;line-height:1.9}.diagram{padding:14px;border:1px solid var(--line);border-radius:12px;background:#f8fbfe;margin-top:20px}.diagram svg{display:block;width:100%;height:auto}.diagram figcaption{font-size:12px;color:var(--muted);margin-top:10px}.steps{counter-reset:step;list-style:none;padding:0}.steps>li{position:relative;padding:0 0 20px 44px;border-left:1px solid var(--line);margin-left:14px}.steps>li:before{counter-increment:step;content:counter(step);position:absolute;left:-15px;top:0;width:29px;height:29px;display:grid;place-items:center;background:var(--blue);border-radius:50%;font-size:13px;font-weight:800;color:white}.steps>li:last-child{border:0;padding-bottom:0}.steps strong{display:block}.checklist{list-style:none;padding:0}.checklist li{margin:0;border-bottom:1px solid #e8edf2}.checklist label{display:flex;gap:12px;padding:13px 0;cursor:pointer}.checklist input{accent-color:var(--blue);width:19px;height:19px;flex-shrink:0;margin-top:5px}.checklist input:checked+span{text-decoration:line-through;color:#718293}details{border:1px solid var(--line);border-radius:12px;margin:18px 0;padding:15px 18px}summary{cursor:pointer;font-weight:750}details[open] summary{margin-bottom:15px}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:15px 0}button{border:1px solid #b9cce5;background:#edf5ff;color:#134f9f;font:600 13px inherit;padding:8px 13px;border-radius:7px;cursor:pointer}.sources{list-style:none;padding:0;counter-reset:source}.sources li{counter-increment:source;padding:12px 0 12px 40px;position:relative;border-bottom:1px solid #e7edf4;font-size:14px;overflow-wrap:anywhere}.sources li:before{content:"[" counter(source) "]";position:absolute;left:0;color:var(--blue);font-size:13px;font-weight:800}.sources small{display:block;color:var(--muted)}footer{padding:0 0 38px;color:var(--muted);font-size:12px}.no-wrap{white-space:nowrap}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:1000px){.layout{grid-template-columns:190px minmax(0,1fr);gap:18px}.section{padding:26px}.grid3{grid-template-columns:1fr}.card{padding:17px}.card .big{font-size:23px}}
+@media(max-width:760px){.wrap{width:calc(100% - 28px)}.hero{padding:36px 0}.hero .lead{font-size:17px}.layout{display:block;padding-top:18px}.sidebar{position:static;margin-bottom:18px}.sidebar nav{padding:15px}.sidebar nav .navlinks{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.sidebar .aside-note{display:none}.section{padding:23px 19px}h2{font-size:24px}.grid2{grid-template-columns:1fr}.table-wrap{margin-left:0;margin-right:0}pre{padding:16px;font-size:12px}.hero:after{right:-340px}.formula{font-size:12px}}
+@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;color:#111}.wrap{width:100%}.hero{background:white!important;color:#111;padding:0 0 16px}.hero:after,.sidebar,.toolbar,.hero .meta,footer{display:none}.hero .lead,.hero small,.eyebrow{color:#333}.layout{display:block;padding:0}.section{padding:16px 0;border:0;border-radius:0;break-inside:auto}h2,h3{break-after:avoid}h1{font-size:27pt}h2{font-size:19pt}.table-wrap{overflow:visible}table{min-width:0;font-size:9pt}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:8pt;background:#f4f4f4;color:#111;break-inside:auto}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr)}.card,.callout,figure{break-inside:avoid}.section{margin-bottom:6px}a{color:#111}details{border:0;padding:0}details>*{display:block}summary{list-style:none}.sources a{overflow-wrap:anywhere}.checklist label{padding:7px 0}@page{size:A4;margin:16mm}}
+</style><link rel="stylesheet" href="theme.css"></head><body><div class="site-return"><a href="../index.html">Cillian Wang</a><span>/</span><a href="index.html">详情</a></div>
+<header class="hero" id="top"><div class="wrap"><div class="eyebrow">Wizard · Research Guide 02</div><h1>用随机户型做<br>Visual SLAM 评测</h1><p class="lead">把“随机生成的房间”升级成<strong>可重复、可诊断、能公平比较算法</strong>的测试集。关键不是多造几套房子，而是把场景、传感器、运动与评测口径锁在同一份协议里。</p><div class="meta"><span class="pill">离线 HTML · 无外部资源依赖</span><span class="pill">方法与实验设计</span><span class="pill">资料核对：2026-10-29</span></div><small>面向室内移动机器人与相机 SLAM。本文提供建议协议与示例，不是已实现的 benchmark，也不包含实测结果；不假设 Wizard 已接通场景生成器、仿真器或 SLAM 系统。</small></div></header>
+<div class="wrap layout"><aside class="sidebar"><nav aria-label="目录"><h2>评测设计导航</h2><div class="navlinks"><a href="#overview">01 · 先定评测边界</a><a href="#dataset">02 · 随机化与数据划分</a><a href="#trajectory">03 · 可通行轨迹</a><a href="#sensor">04 · 传感器与渲染</a><a href="#coordinates">05 · 坐标与时钟</a><a href="#metrics">06 · ATE / RPE</a><a href="#failures">07 · 失败也要计分</a><a href="#experiments">08 · 难度与统计</a><a href="#examples">09 · 文件与命令</a><a href="#manifest">10 · JSON 清单</a><a href="#plan">11 · 分阶段实施</a><a href="#checklist">12 · 评测前检查</a><a href="#reality">13 · Sim-to-real 边界</a><a href="#sources">14 · 一手资料</a></div></nav><div class="aside-note">阅读路线：先看 01、05、06、07；准备实现时再看 09–12。<br><br>所有无引用的规则、阈值与 JSON 字段均为本文的<strong>建议设计</strong>，不是某个工具的默认行为。</div></aside><main class="content">
+<section class="section" id="overview"><span class="secno">01 / SCOPE</span><h2>先评“同一段观测”，再评“自主探索”</h2><div class="grid3"><div class="card"><span class="big">固定回放</span><p>预录同一批图像、深度与时间戳，算法只看允许的输入。适合比较定位误差、失跟和运行开销。</p></div><div class="card"><span class="big">闭环系统</span><p>算法估计影响控制与路径。适合评机器人任务成功率，但也混入规划、控制和避障差异。</p></div><div class="card"><span class="big">两张成绩单</span><p>不要把导航任务完成率与离线轨迹 ATE 混成一个未经定义的“SLAM 分数”。</p></div></div><p>第一版建议采用<strong>固定回放 benchmark</strong>：同一个场景与轨迹只渲染一次，然后把完全相同的字节交给每个算法。真值和场景语义只供评测器使用；RGB-D 的深度输入是传感器观测，不等于可访问真值轨迹或真值地图。</p><figure class="diagram"><svg viewBox="0 0 820 245" role="img" aria-labelledby="flow-title flow-desc"><title id="flow-title">随机户型到 VSLAM 评测的数据流</title><desc id="flow-desc">场景清单决定三维世界与真实运动，渲染得到传感器数据交给算法，真值姿态另行交给评测器，算法不接触真值。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#527997"/></marker></defs><g fill="#fff" stroke="#c2d5e5" stroke-width="1.5"><rect x="15" y="35" width="154" height="74" rx="12"/><rect x="211" y="35" width="154" height="74" rx="12"/><rect x="409" y="35" width="154" height="74" rx="12"/><rect x="650" y="35" width="154" height="74" rx="12"/><rect x="650" y="163" width="154" height="65" rx="12"/></g><g font-family="sans-serif" font-size="17" text-anchor="middle" fill="#17364d"><text x="92" y="65">冻结 manifest</text><text x="92" y="90" font-size="12" fill="#526d82">场景 × 路线 × 传感器</text><text x="288" y="65">3D 仿真与渲染</text><text x="288" y="90" font-size="12" fill="#526d82">实际运动 / 帧时间</text><text x="486" y="65">允许的观测</text><text x="486" y="90" font-size="12" fill="#526d82">RGB / Stereo / RGB-D</text><text x="727" y="65">待测 SLAM</text><text x="727" y="90" font-size="12" fill="#526d82">估计位姿 + 状态日志</text><text x="727" y="203">统一评测器</text></g><g stroke="#527997" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M170 72H205"/><path d="M366 72H403"/><path d="M565 72H644"/><path d="M727 110V155"/><path d="M288 110V195H642"/></g><rect x="346" y="179" width="260" height="31" rx="8" fill="#e1f5ef"/><text x="476" y="199" font-family="sans-serif" text-anchor="middle" font-size="13" fill="#196454">相机真值 T_world_camera：仅评测器可读</text></svg><figcaption>逻辑示意，非现有系统架构。第二条通道必须与算法输入隔离。</figcaption></figure><p class="small">TUM 的经典基准以独立真值比较输出轨迹，区分局部运动误差与整体轨迹一致性；它并不把内部重投影残差当作最终定位精度。<a class="ref" href="#src1">[1]</a></p></section>
+<section class="section" id="dataset"><span class="secno">02 / DATASET DESIGN</span><h2>分开随机数，才能知道是谁让算法失效</h2><div class="table-wrap"><table><thead><tr><th>随机因素</th><th>控制什么</th><th>建议保持不变的对照</th></tr></thead><tbody><tr><td>topology_seed</td><td>外轮廓、房间邻接、走廊、门、连通性</td><td>外观和路线不变，隔离几何难度</td></tr><tr><td>appearance_seed</td><td>材质、纹理、物体实例、灯光；可再细分子种子</td><td>相同户型、相同轨迹换外观</td></tr><tr><td>trajectory_seed</td><td>起终点、访问顺序、闭环与速度曲线</td><td>同一场景观察不同运动影响</td></tr><tr><td>dynamics / noise_seed</td><td>行人轨迹、门的动作；相机与深度噪声</td><td>同一底片配成静态/动态或理想/带噪声条件</td></tr><tr><td>algorithm_run_seed</td><td>算法内部随机性；不一定能控制线程调度</td><td>所有算法共享同一输入，而不是重新渲染</td></tr></tbody></table></div><p>一个“大种子”并不足够。生成器增加一次随机抽样就可能改变之后所有内容；应使用具名的独立随机流，并保存<strong>最终场景、轨迹与传感器数据的哈希</strong>。种子用于重建，冻结文件才是这次比较的依据。</p><h3>按场景族划分，而不是按图像划分</h3><ul><li><strong>Train：</strong>仅当方法需要学习时使用；不学习的方法也不能利用测试集真值选参数。</li><li><strong>Dev：</strong>调参、选择噪声模型、发现适配错误；先在这里确定失败定义、过滤条件和评测口径。</li><li><strong>Test：</strong>冻结后只做最终评测。相同基础户型的改纹理版、旋转版、镜像版、不同轨迹都属于同一个 <code>scene_family_id</code>，不可跨集合泄漏。</li><li><strong>分开回答两种泛化：</strong>“未见几何、相似家具库”与“未见几何 + 未见材质/资产族”是不同的测试；后者单独标为 OOD。</li></ul><div class="callout"><strong>冻结的最小单元</strong><p>split manifest → scene/asset revision → trajectory/rig → sensor profile → frame/pose files → hashes。把 split 列表与生成器版本一起归档；测试后发现坏数据，用有版本号的纠错清单修复并对所有算法重跑，不能只删掉某算法失败的样本。</p></div></section>
+<section class="section" id="trajectory"><span class="secno">03 / MOTION</span><h2>先保证“能走”，再保证“值得测”</h2><p>二维户型图本身不能直接评视觉 SLAM。至少需要有尺度的三维墙体、门洞、天花/地面、合理材质和相机可见的遮挡关系，再为机器人足迹建立可通行域。</p><ol class="steps"><li><strong>几何体检</strong>检查门洞净宽、墙体厚度、家具穿插、封闭房间与悬空物体。按机器人半径 + 安全余量膨胀障碍；足迹、机身高度、相机高度分别检查。</li><li><strong>可达性验证</strong>在同一个可达连通分量内采样起终点，验证路径存在。记录不可通行场景的生成拒绝率，而不是用算法是否能跟踪来决定场景是否有效。</li><li><strong>生成路线族</strong>短程无闭环、跨房间长程、返回起点闭环、相似走廊、原地转向、遮挡后回到已建图区域。难度按门数、转角数、长度、可见区域变化等描述。</li><li><strong>连续运动与碰撞复查</strong>给路径做速度/加速度/角速度限制。平滑后重检与墙和家具的距离；不能把折线路径直接当成瞬时旋转的相机轨迹。不要每一帧随机传送。</li><li><strong>保存实际相机位姿</strong>如果有物理仿真，记录执行后的真实 body pose，再乘相机外参；不要拿控制指令、规划路径或里程计当真值。</li></ol><p>Habitat-Sim 的 PathFinder 提供 NavMesh、路径、点采样、障碍距离与连通岛查询，可作为静态可通行路线的工具；它不替代对具体机器人完整碰撞体和动态物体的验证。<a class="ref" href="#src8">[8]</a></p><div class="callout warn"><strong>对比闭环时，固定机会，而非强行保证识别成功。</strong><p>根据真值位置、视角和可见重叠定义“闭环机会”；算法是否正确闭环才是结果。机器人没看过同一个地方，不应算成回环检测失败。6-DoF 手持/飞行轨迹与平面底盘轨迹分榜，不用不可能的运动给底盘制造难题。</p></div></section>
+<section class="section" id="sensor"><span class="secno">04 / OBSERVATIONS</span><h2>传感器赛道分开，理想真值不等于真实传感器</h2><div class="table-wrap"><table><thead><tr><th>赛道</th><th>允许的算法输入</th><th>必须补齐的契约</th></tr></thead><tbody><tr><td>Monocular</td><td>单相机图像、内参、时间戳</td><td>无额外尺度先验时绝对尺度不可观；主榜 Sim(3)</td></tr><tr><td>Stereo</td><td>同步左右图像、内外参</td><td>基线的米制单位、左右顺序、校正前/后内参与畸变</td></tr><tr><td>RGB-D</td><td>彩色 + 传感器深度</td><td>深度单位、Z-depth 或 ray range、无效值与范围、配准状态</td></tr><tr><td>Visual-inertial</td><td>对应视觉赛道 + IMU</td><td>IMU 坐标、相机外参、采样率、时偏、噪声与 bias、重力方向</td></tr></tbody></table></div><p>同一算法的不同传感器配置也应独立列项。不得将 RGB-D 的理想深度用于单目输入，也不得让基线算法读到语义 mask、相机真值或生成器地图，除非另立“有额外先验”赛道。ORB-SLAM3 提供多种视觉与视觉惯性配置，是可选的对照候选，不代表它已在 Wizard 中可运行。<a class="ref" href="#src5">[5]</a></p><div class="grid2"><div class="card"><h3>理想控制组</h3><p>无噪声、固定曝光、已知 pinhole 内参、严格同步、无动态。先证实格式、标定、坐标和度量工具没有错误。</p></div><div class="card"><h3>现实压力组</h3><p>加入曝光变化、运动模糊、光子/读出噪声、压缩、深度空洞和量化。逐项验证后再组合；参数来自目标相机测量或明确标为假设。</p></div></div><h3>渲染时至少保存这些信息</h3><ul><li>RGB 色彩顺序、位深、分辨率、FOV/内参、畸变、裁剪范围；resize/crop 后同步更新内参。图像去畸变与算法畸变参数不能重复生效。</li><li>光源位置与强度、曝光/增益、tone mapping、渲染模式/采样数、动态对象轨迹和版本；不要把纯随机噪声纹理当成真实室内纹理。</li><li>RGB-D 保存原始深度语义。若返回光线距离 <code>r</code>，对 pinhole 相机可用 <code>Z = r / sqrt(1 + x_n² + y_n²)</code> 转为光轴深度；有畸变时先取得正确射线方向。</li><li>理想 geometry-depth 与模拟传感器-depth 分别存放。反光/透明材质、边缘、遮挡和测距范围的失效模型要独立说明。</li></ul><p>Isaac Lab 文档明确区分光轴深度 <code>distance_to_image_plane</code> 与到光心的欧氏距离 <code>distance_to_camera</code>。Isaac Sim 当前相机文档已迁移到 <code>RtxCamera</code> / <code>CameraSensor</code>；本文不提供未经版本验证的仿真 API 代码。选定版本后固定其传感器与渲染接口。<a class="ref" href="#src9">[9]</a> <a class="ref" href="#src10">[10]</a></p><div class="callout warn"><strong>可选 IMU 不宜用“相邻位姿粗差分”草率生成。</strong><p>应从平滑、足够高频的真实运动产生角速度和含重力关系的比力，再叠加记录明确的 bias、噪声密度与随机游走；单位分别为 rad/s、m/s²。配置静止及有激励的初始化片段，并单独计初始化失败。滚动快门则需要行读出时序；单个帧中心位姿只是评测约定，不是整张图的瞬时物理真值。</p></div></section>
+<section class="section" id="coordinates"><span class="secno">05 / GEOMETRY & TIME</span><h2>一开始就写清楚 T 的方向</h2><p>本文统一采用<strong>列向量</strong>与 <code>T_A_B</code> 命名：把 B 坐标中的点变换到 A 坐标。右手世界系 Z 向上；相机光学系 x 向右、y 向下、z 向前。若引擎采用另一种相机轴向，先做固定基变换，再导出。</p><div class="formula">p_world = T_world_camera · p_camera<br>T_world_camera = T_world_body · T_body_camera<br>T_camera_world = inverse(T_world_camera)<br>若 T = [R t; 0 1]，则 T⁻¹ = [Rᵀ −Rᵀt; 0 1]</div><p>逆变换不是简单把平移取负，也不是把四元数顺序换一下。相机光心与机体/IMU 原点可能相差几十厘米，尤其转弯时不能混评。ORB-SLAM3 的 EuRoC 说明特别区分 IMU-body 真值与纯视觉左相机轨迹；标定文档定义了相机光学轴与传感器外参。<a class="ref" href="#src5">[5]</a> <a class="ref" href="#src6">[6]</a></p><h3>TUM 风格导出约定</h3><pre><code># timestamp_s tx_m ty_m tz_m qx qy qz qw
+# pose = T_world_camera；四元数为单位四元数，顺序 xyzw
+# 以下仅说明格式，不是采集结果。
+1700000000.000000000 1.0 2.0 0.8 0.0 0.0 0.0 1.0</code></pre><p class="small">TUM 文件的相机位置/朝向相对于世界，时间以秒表示，四元数为 <code>qx qy qz qw</code>。本方案可设一个固定的合成 Unix 起点，但要显式标记“合成起点”，不是声称采集于该日期。<a class="ref" href="#src2">[2]</a></p><h3>同步必须与图像采样时刻一致</h3><ul><li>内部优先存整数纳秒；导出秒时检查精度。所有传感器和 GT 使用同一仿真时钟，单调递增、无重复戳，显式记录曝光中心/开始/结束。</li><li>位姿关联到<strong>图像对应的采样时刻</strong>，不是渲染结束时间或算法输出到达时间。后者另存为 latency。</li><li>同步左右相机、RGB 与 depth；IMU 保留自己的高频时间轴和外参。若故意加入时偏，按压力条件记录，不能为每个测试序列用 GT 重新“调到最好”。</li><li>高频 GT 可在相机曝光时刻采样；必要时平移插值 + 旋转 SLERP，并记录插值策略。不要跨越缺测、失跟或 reset 的大间隔插值算法轨迹。</li></ul><p class="small">EuRoC 官方数据含同步视觉/IMU、标定与真值，也公开了曝光和记录系统同步的限制。它可作为格式和现实复杂性的参考，不意味着合成数据只要长得像 EuRoC 就完成了标定。<a class="ref" href="#src7">[7]</a></p><div class="callout good"><strong>三项小测试，先于任何排行榜：</strong><p>相机前方 1 m 的点应投影到正确像素；已知 1 m 平移应在 GT 中恰为 1 m；导出 T 与 T⁻¹ 相乘应为单位阵。再用已知正向旋转检查图像方向、四元数顺序及左右手系。</p></div></section>
+<section class="section" id="metrics"><span class="secno">06 / ACCURACY</span><h2>ATE 看全局，RPE 看局部；口径比小数点更重要</h2><p>记真值相机位姿为 <code>Qᵢ</code>，已统一时间/坐标约定的估计为 <code>Pᵢ</code>。先固定关联集合、有效样本范围、对齐方式、区间与单位，再算误差。</p><div class="grid2"><div class="card"><h3>ATE / 平移 APE</h3><p>对齐后逐时刻位置偏差的 RMSE（m），另列 median / P95。反映全局轨迹一致性；不能单凭它推断地图质量。</p><div class="formula">ATE = sqrt(mean(||qᵢ − p̃ᵢ||²))</div></div><div class="card"><h3>RPE</h3><p>比较两个时刻间的相对运动，主统计为平移 RMSE（m）与旋转 RMSE（deg），附 median/P95。说明是 1 m、5 m、1 s 还是固定帧间隔。</p><div class="formula">Eᵢⱼ = (Qᵢ⁻¹Qⱼ)⁻¹(Pᵢ⁻¹Pⱼ)</div></div></div><p class="small">以上分别对应 TUM 轨迹误差思想与 evo 的 APE/RPE；evo 是通用工具，不是某一数据集协议的逐项复刻。<a class="ref" href="#src1">[1]</a> <a class="ref" href="#src3">[3]</a> <a class="ref" href="#src4">[4]</a></p><div class="table-wrap"><table><thead><tr><th>情形</th><th>建议主口径</th><th>不能掩盖什么</th></tr></thead><tbody><tr><td>有度量尺度：Stereo / RGB-D</td><td>一个全局 SE(3)，仅旋转和平移；不允许优化尺度</td><td>错误 baseline、深度尺度或算法尺度漂移</td></tr><tr><td>无额外尺度先验的单目</td><td>一个全局 Sim(3)；独立单目榜单</td><td>“几何形状好”不等于恢复了真实绝对尺度</td></tr><tr><td>视觉惯性</td><td>度量主榜不做尺度修正；初始化失败独立记录</td><td>全 SE(3) 会吸收常量倾斜；可补充重力方向误差及 yaw+平移对齐，明确另列</td></tr><tr><td>在线漂移/闭环分析</td><td>附加固定起始对齐或预注册初始化窗对齐</td><td>整段最小二乘对齐使用了未来 GT，不是在线定位性能</td></tr></tbody></table></div><p><strong>单目的尺度要怎么报告？</strong>保留全局 Sim(3) 的拟合尺度 <code>s</code>（估计单位 → 米）与时间窗口尺度变化；窗口拟合只作诊断，不用于逐段修正主成绩。单目原始单位本来任意时，不能把 <code>|s−1|</code> 直接解释成物理尺度错误。若有外部尺度先验或固定初始化尺度，单独列出其来源和无后续尺度修正的误差。</p><h3>把 RPE 的“每米 / 每秒”说准确</h3><ul><li>建议主 RPE 采用按<strong>真值累计行程</strong>选出的 1 m 区间；另测 5 m 区间看中程漂移。固定 all-pairs/不重叠策略、区间容差、有效 pair 数和真实间隔分布。</li><li>“1 m 区间的平移误差”单位仍为 m，“1 m 区间的旋转误差”仍为 deg。若报告百分比或 deg/m，必须按每个 pair 的真实距离归一化，再汇总；不是换一个标签。</li><li>当前 evo CLI 的 <code>--delta_unit</code> 支持 <code>f / d / r / m</code>，<strong>没有 <code>s</code></strong>。要评 1 s，用明确的时间戳配对器；只有严格等间隔、完整无缺帧的 30 Hz 序列，30 帧间隔才等于 1 s。<a class="ref" href="#src11">[11]</a></li><li>刚体全局对齐不会改变相对运动；尺度修正会改变平移 RPE。单目应先应用同一个全局拟合尺度再算 RPE，绝不能每个片段重新拟合最优尺度。</li></ul><div class="callout warn"><strong>不默认投影为 2D。</strong><p>平面机器人仍可能有俯仰、颠簸和相机高度误差。主榜使用 3D 位姿误差，另附 XY 可视化。低 ATE 不证明回环“都正确”：保存回环时间、优化前后误差、错误闭环导致的轨迹跳变。</p></div></section>
+<section class="section" id="failures"><span class="secno">07 / RELIABILITY</span><h2>只对成功轨迹算平均，会奖励早早退出的算法</h2><p>每个预定 run 必须出现在结果表中，包括初始化失败、失跟、崩溃、超时和没有输出。<strong>缺失误差记为 NA + 原因，而不是 0；失败 run 仍进入成功率的分母。</strong></p><div class="table-wrap"><table><thead><tr><th>指标</th><th>建议明确定义</th><th>报告方式</th></tr></thead><tbody><tr><td>完成率</td><td>预注册完成条件，例如跟踪比例 ≥95%、最大连续缺口 ≤2 s、到达最后 1 s 窗口且未崩溃</td><td>通过 run 数 / 所有预定 run；同时报告条件阈值。此处数值仅为起点建议；不代表精度合格</td></tr><tr><td>跟踪比例</td><td>固定评测时间网格上的有效在线位姿数 / 全部应有样本数</td><td>从序列开始计；初始化等待时间不悄悄删掉；明确“自报 tracking”还是经真值验证</td></tr><tr><td>失跟</td><td>连续无有效估计或算法报告 lost 的时间段</td><td>次数、总时长、最长时长；时间网格容差固定，不以关键帧稀疏度冒充失跟</td></tr><tr><td>重定位</td><td>预定义遮挡/离开视野后，回到已建图区域，恢复到原地图坐标并满足误差门限，持续一个固定窗口</td><td>成功率、耗时、错误重定位数；创建新地图不是自动算成功</td></tr><tr><td>覆盖率</td><td>固定 GT 网格/房间中的有效跟踪访问覆盖，或已观测表面覆盖；定义分母与可见性</td><td>与时间跟踪比例分开；固定回放的路线覆盖由数据决定，不能当算法的探索能力</td></tr><tr><td>计算开销</td><td>固定硬件与线程下，输入到在线位姿的延迟、吞吐、CPU/GPU 与内存峰值</td><td>median/P95、实时截止期违约、丢帧与队列；仿真渲染时间与 SLAM 时间分开</td></tr></tbody></table></div><p><strong>完成不等于准确。</strong>上述完成率只衡量运行与跟踪可用性；若称为“定位成功率”，还要在 Dev 上预注册位置/姿态误差门限及持续时长。下文的成功 run 必须注明采用“完成”还是“精度合格”标准，不能混用。</p><h3>部分轨迹与 reset 的处理规则</h3><ol><li><strong>全体 run 的可靠性先报。</strong>再报“成功 run 条件下的 ATE/RPE”，同时给出成功数；另附所有部分轨迹误差、有效时长与路径长度。它们不能直接作为无条件精度排名。</li><li><strong>每条轨迹只用一个全局对齐。</strong>失跟后 reset 成多个地图坐标时，必须说明 map_id；无合法全局拼接关系则整条 run 不具备单一全局 ATE。片段误差只能作为诊断，不能独立对齐后冒充完整成功。</li><li><strong>不得虚构缺失轨迹。</strong>不以最后位姿填满未来、不跨长缺口插值、不删除高误差片段。RPE 只在连续有效区间内配对，缺口两端不得强连。</li><li><strong>在线与最终优化后轨迹分开。</strong>最终重优化的历史轨迹不能冒充当时可用于控制的在线输出；最终轨迹的稀疏关键帧精度也不能替代逐帧跟踪可用性。</li><li><strong>区分数据无效与算法失败。</strong>坏相机内参/渲染缺帧属于数据管线错误，按统一规则处理所有算法；同一输入上算法崩溃则属于方法结果。不要事后按排名修改判定。</li></ol><div class="callout"><strong>推荐一行结果字段</strong><p><code>scene_id, condition_id, trajectory_id, run_id, status, initialized, tracking_ratio, max_gap_s, map_resets, ate_rmse_m, rpe_trans_rmse_m, rpe_rot_rmse_deg, num_pairs, alignment, fitted_scale, latency_p95_ms, peak_memory_mb, failure_reason</code>。字段为空时保留原因；不要编造一个“代表性成绩”。</p></div></section>
+<section class="section" id="experiments"><span class="secno">08 / EXPERIMENT MATRIX</span><h2>先单因素，再组合压力；用成对实验比较</h2><div class="table-wrap"><table><thead><tr><th>维度</th><th>建议条件</th><th>主要观察</th></tr></thead><tbody><tr><td>几何</td><td>长走廊、窄门、连通环、相似房间</td><td>漂移、闭环机会、错误地点识别</td></tr><tr><td>纹理</td><td>均匀墙面、重复纹理、自然纹理</td><td>初始化、特征退化、误匹配</td></tr><tr><td>光照</td><td>明暗房间切换、局部强光、曝光变化</td><td>失跟、恢复、视觉/深度差异</td></tr><tr><td>运动</td><td>慢速 / 快转、前向移动、低视差、局部纯旋转</td><td>可观性、模糊、初始化失败</td></tr><tr><td>动态</td><td>可控行人数量与遮挡占比、门动作</td><td>静态背景比例、失跟和错误地图</td></tr><tr><td>回环</td><td>无回环、短回环、长回环、相似但不同的房间</td><td>闭环前后漂移、误闭环、修正耗时</td></tr><tr><td>传感器</td><td>深度空洞、噪声、丢帧、时偏、滚动快门</td><td>精度/可用性对单项退化的敏感度</td></tr></tbody></table></div><p><span class="tag">建议统计设计</span> 以相同 <code>scene × trajectory × condition × sensor bytes</code> 对齐所有算法。每个场景多条路线，算法重复运行以反映随机性；“同场景跑 20 次”不是 20 个独立户型。</p><ul><li>先在每个场景内汇总重复 run 与轨迹，再做场景等权 macro-average；按户型大小、路线长度和难度分层报告，避免长序列或大场景占据全部权重。</li><li>比较 A 与 B 的成对差值，并展示分布。置信区间可用以场景族为簇的 paired bootstrap；避免把数十万帧当作独立样本。</li><li>成功率比较用全体成对 trial；双方均成功时的精度差只是条件分析，需要同时列出单边失败数。</li><li>固定 CPU/GPU、线程、版本、功耗设置、输入速率和最大队列策略。硬件负载会扰动时延，应交错/随机化运行顺序，记录每次运行环境。</li><li>提前冻结超时与重试政策。基础设施故障可以有记录地重试；算法崩溃不能“重跑到成功为止”。若存在线程非确定性，即使固定随机种子也要保留多次结果。</li></ul></section>
+<section class="section" id="examples"><span class="secno">09 / FILES & COMMANDS</span><h2>让每个结果能追溯到一份输入</h2><pre><code>benchmark_v1/                      # 建议目录，不是现有实现
+  splits/{train,dev,test}.json      # 按 scene_family_id 冻结
+  scenes/layout-0042/
+    scene.glb                      # 示例格式；可换为 USD 等
+    scene_manifest.json
+    calibration.json
+    trajectories/loop-0003/
+      sequence_manifest.json
+      rgb/                         # 时间戳索引与帧哈希
+      depth/                       # RGB-D 赛道才暴露
+      rgb.txt  depth.txt
+      groundtruth_camera.tum       # 评测侧，算法隔离
+      tracking_grid.csv
+  runs/algorithm_A/...
+    online_camera.tum
+    final_camera.tum
+    state_log.csv                  # tracking/lost/reset/map_id
+    runtime.json
+  results/
+    all_runs.csv
+    protocol.json</code></pre><p>运行适配器要把算法输出统一为 <code>T_world_camera</code>、米制或声明的单目单位、正确的相机时间戳。基准不应依赖“某算法恰好输出了看起来像 TUM 的文本”。</p><div class="callout warn"><strong>以下是评测命令示例，不是 benchmark 实现。</strong><p>命令不会自动生成数据、检测失跟或完成公平排名。必须先执行上述数据验证与失败策略。<code>0.001 s</code> 是严格同步合成数据的示例关联容差，不是通用推荐；真实数据需要独立标定的时偏与预注册容差。</p></div><pre><code># 示意命令：先有经验证的 TUM 格式输入；本文没有执行这些评测。
+# 下列参数按 2026-10-29 查阅的 evo 官方文档/解析器核对。
+# 正式实验固定 evo 版本；再检查该版本的 --help。
+evo_ape tum --help
+evo_rpe tum --help
+mkdir -p results
+
+# 1) 度量模式：Stereo / RGB-D（或已初始化的视觉惯性）
+# 一个全局 SE(3)，不修正尺度；输出平移 ATE，输入单位为米。
+evo_ape tum gt_camera.tum est_camera.tum \
+  --align --pose_relation trans_part --t_max_diff 0.001 \
+  --save_results results/ate_se3_algorithm_A.zip
+
+# 2) 无尺度单目：单独的榜单，允许一个全局 Sim(3)。
+evo_ape tum gt_camera.tum est_mono.tum \
+  --align --correct_scale --pose_relation trans_part \
+  --t_max_diff 0.001 --save_results results/ate_mono_sim3_algorithm_A.zip
+
+# 3) 度量尺度输入的 RPE：按真值行程选择 1 m 的重叠区间。
+# 单目须预先应用同一个全程拟合尺度；下列命令不会自动缩放。
+# seg 是事先按 lost/reset 日志分出的连续段；不得跨失跟区间配对。
+evo_rpe tum gt_seg.tum est_seg.tum \
+  --pose_relation trans_part --delta 1 --delta_unit m \
+  --all_pairs --pairs_from_reference --delta_tol 0.1 \
+  --t_max_diff 0.001 --save_results results/rpe_1m_trans.zip
+
+evo_rpe tum gt_seg.tum est_seg.tum \
+  --pose_relation angle_deg --delta 1 --delta_unit m \
+  --all_pairs --pairs_from_reference --delta_tol 0.1 \
+  --t_max_diff 0.001 --save_results results/rpe_1m_rot.zip
+
+# 4) 只合并同一指标、同一口径的结果，不把 ATE 与 RPE 混在一起。
+evo_res results/ate_se3_algorithm_*.zip --save_table results/ate_se3_table.csv</code></pre><p class="small">参数依据 evo Metrics、README 与 APE/RPE CLI 解析器；当前文档包含 <code>--pairs_from_reference</code>。旧版本若不支持，应固定兼容版本或在评测器实现相同规则，不能悄悄删选项。汇总工具不会替你处理失败 run、场景等权或多传感器榜单。<a class="ref" href="#src3">[3]</a> <a class="ref" href="#src4">[4]</a> <a class="ref" href="#src11">[11]</a> <a class="ref" href="#src12">[12]</a></p></section>
+<section class="section" id="manifest"><span class="secno">10 / MANIFEST</span><h2>可复用的 benchmark JSON 示例</h2><p>这是<strong>本文提出的自定义 schema</strong>，不是 Habitat、Isaac Sim、ORB-SLAM3 或 evo 的原生配置。示例选 RGB-D 理想控制组；换赛道应建立独立配置。数值仅说明字段，正式冻结前必须填入真实版本、哈希与经验证的参数。</p><div class="toolbar"><button type="button" id="download-json">下载示例 JSON</button><button type="button" id="copy-json">复制 JSON</button><span id="copy-status" class="small" role="status" aria-live="polite"></span></div><details open><summary>展开 / 收起完整清单</summary><pre><code id="manifest-code">{
+  &quot;schema&quot;: &quot;proposed-floorplan-vslam/v0.1&quot;,
+  &quot;status&quot;: &quot;illustrative_not_frozen&quot;,
+  &quot;benchmark_id&quot;: &quot;wizard-vslam-pilot&quot;,
+  &quot;split&quot;: {
+    &quot;name&quot;: &quot;test&quot;,
+    &quot;scene_family_id&quot;: &quot;topology-0042&quot;,
+    &quot;scene_id&quot;: &quot;layout-0042&quot;,
+    &quot;split_manifest_sha256&quot;: null
+  },
+  &quot;seeds&quot;: {
+    &quot;topology&quot;: 42,
+    &quot;appearance&quot;: 1007,
+    &quot;trajectory&quot;: 2003,
+    &quot;dynamics&quot;: 3001,
+    &quot;sensor_noise&quot;: 4002,
+    &quot;algorithm_run&quot;: 5001
+  },
+  &quot;assets&quot;: {
+    &quot;scene_file&quot;: &quot;scene.glb&quot;,
+    &quot;scene_sha256&quot;: null,
+    &quot;asset_pack_revision&quot;: &quot;TO_BE_PINNED&quot;
+  },
+  &quot;environment&quot;: {
+    &quot;generator_commit&quot;: &quot;TO_BE_PINNED&quot;,
+    &quot;simulator_build&quot;: &quot;TO_BE_PINNED&quot;,
+    &quot;renderer_config_sha256&quot;: null,
+    &quot;algorithm_commit&quot;: &quot;TO_BE_PINNED&quot;,
+    &quot;evo_version&quot;: &quot;TO_BE_PINNED&quot;,
+    &quot;hardware_record&quot;: &quot;hardware.json&quot;
+  },
+  &quot;frames&quot;: {
+    &quot;length_unit&quot;: &quot;m&quot;,
+    &quot;world_axes&quot;: &quot;right_handed_Z_up&quot;,
+    &quot;body_axes&quot;: &quot;x_forward_y_left_z_up&quot;,
+    &quot;camera_axes&quot;: &quot;x_right_y_down_z_forward&quot;,
+    &quot;pose_convention&quot;: &quot;T_world_camera&quot;,
+    &quot;quaternion_order&quot;: &quot;xyzw&quot;,
+    &quot;T_body_camera&quot;: [
+      [
+        0,
+        0,
+        1,
+        0.2
+      ],
+      [
+        -1,
+        0,
+        0,
+        0.0
+      ],
+      [
+        0,
+        -1,
+        0,
+        0.8
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  &quot;sensor&quot;: {
+    &quot;track&quot;: &quot;rgbd&quot;,
+    &quot;width&quot;: 640,
+    &quot;height&quot;: 480,
+    &quot;fps&quot;: 30,
+    &quot;model&quot;: &quot;pinhole&quot;,
+    &quot;K&quot;: [
+      [
+        525,
+        0,
+        319.5
+      ],
+      [
+        0,
+        525,
+        239.5
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    &quot;distortion&quot;: [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;shutter&quot;: &quot;global&quot;,
+    &quot;exposure_s&quot;: 0.005,
+    &quot;depth_semantics&quot;: &quot;optical_axis_Z&quot;,
+    &quot;depth_unit&quot;: &quot;m&quot;,
+    &quot;depth_range_m&quot;: [
+      0.2,
+      8.0
+    ],
+    &quot;depth_registered_to&quot;: &quot;rgb_camera&quot;,
+    &quot;imu_enabled&quot;: false,
+    &quot;noise_profile&quot;: &quot;ideal_control_v1&quot;
+  },
+  &quot;timing&quot;: {
+    &quot;internal_unit&quot;: &quot;integer_ns&quot;,
+    &quot;export_unit&quot;: &quot;s&quot;,
+    &quot;export_epoch_s&quot;: 1700000000,
+    &quot;epoch_is_synthetic&quot;: true,
+    &quot;timestamp_reference&quot;: &quot;exposure_midpoint&quot;,
+    &quot;rgb_depth_offset_ns&quot;: 0,
+    &quot;estimated_pose_time&quot;: &quot;input_image_timestamp&quot;
+  },
+  &quot;trajectory&quot;: {
+    &quot;family&quot;: &quot;closed_loop&quot;,
+    &quot;duration_s&quot;: 120,
+    &quot;max_speed_mps&quot;: 0.5,
+    &quot;max_yaw_rate_degps&quot;: 45,
+    &quot;robot_radius_m&quot;: 0.22,
+    &quot;clearance_margin_m&quot;: 0.08,
+    &quot;poses_file&quot;: &quot;groundtruth_camera.tum&quot;,
+    &quot;actual_pose_not_command&quot;: true
+  },
+  &quot;evaluation&quot;: {
+    &quot;reference_frame&quot;: &quot;rgb_camera&quot;,
+    &quot;trajectory_kind&quot;: &quot;online&quot;,
+    &quot;association&quot;: &quot;nearest_time&quot;,
+    &quot;max_time_diff_s&quot;: 0.001,
+    &quot;fit_alignment&quot;: &quot;one_global_SE3_on_valid_matches&quot;,
+    &quot;allow_scale_fit&quot;: false,
+    &quot;rpe&quot;: {
+      &quot;delta&quot;: 1.0,
+      &quot;unit&quot;: &quot;m&quot;,
+      &quot;pairs_from&quot;: &quot;reference&quot;,
+      &quot;all_pairs&quot;: true,
+      &quot;relative_delta_tolerance&quot;: 0.1,
+      &quot;cross_lost_gap_pairs&quot;: false
+    },
+    &quot;failure_policy&quot;: {
+      &quot;min_tracking_ratio&quot;: 0.95,
+      &quot;max_continuous_gap_s&quot;: 2.0,
+      &quot;must_reach_final_window&quot;: true,
+      &quot;final_window_s&quot;: 1.0,
+      &quot;crash_timeout_counts_as_failure&quot;: true,
+      &quot;partial_ate_label&quot;: &quot;conditional_on_observed_poses&quot;,
+      &quot;primary_aggregation&quot;: &quot;scene_macro_then_paired_by_scene&quot;
+    },
+    &quot;trajectory_sha256&quot;: null,
+    &quot;sensor_bundle_sha256&quot;: null
+  }
+}</code></pre></details><div class="callout warn"><strong>不要把示例中的 null 和 TO_BE_PINNED 当成可冻结值。</strong><p>发布检查应拒绝这些字段；哈希覆盖最终文件字节。不同噪声强度、左右基线或 IMU 参数需要各自明确的 profile。将示例改成冻结版，不代表已经生成或评测了任何数据。</p></div></section>
+<section class="section" id="plan"><span class="secno">11 / EXECUTION PLAN</span><h2>四阶段推进，比直接生成一千套房子更稳</h2><p class="small">以下数量是用于估计工作量的建议起点，不是统计功效结论，也不是已运行规模。</p><ol class="steps"><li><strong>阶段 A · 管线自检：3 个小场景</strong>空房、带门两房、简单闭环。确认 1 m 尺度、图像投影、T 方向、时钟、深度语义与算法输出。用 GT 直接对 GT 的离线评测应近零；人为插入已知刚体/尺度变化，检查对齐是否按规则生效。</li><li><strong>阶段 B · Dev 试验：约 12 个场景族</strong>每场景 2–3 条路线，选择一个已适配的基线，先理想控制组再单项压力。确定初始化片段、运行超时、成功定义与主指标；统计生成拒绝率和失败类型。</li><li><strong>阶段 C · 冻结 Test：例如 60 个新场景族</strong>按几何/路线长度分层，每个算法使用相同数据，先以 3 次重复 run 估计随机性。根据开发阶段方差和目标效应选择正式样本量，不能看到 test 排名后再挑规模。</li><li><strong>阶段 D · 现实锚定</strong>在对应传感器配置上跑 TUM / EuRoC 等真实数据，再用目标机器人采集有独立真值的小样本。观察排序与失败模式是否一致；若不一致，先诊断域差异，不调 test 去“对齐结论”。</li></ol><h3>建议产出，而不是只留一个排名</h3><ul><li><strong>协议包：</strong>split、scene/sequence manifests、传感器配置、版本、哈希、有效性规则、失败政策。</li><li><strong>原始结果包：</strong>全部在线/最终轨迹、状态、回环/重定位事件、运行日志与资源数据。</li><li><strong>分析包：</strong>全体 run 表、场景等权统计、成对差值与置信区间、分层曲线和失败案例；没有测试结果的地方保持空白。</li></ul><div class="callout"><strong>Wizard 的合理接口边界</strong><p>把已有资产整理工作作为可选的 <code>asset_catalog</code> 来源，经过尺度、碰撞体和材质检查后再进入场景生成。本文只定义需要哪些输入/输出，不宣称已有资产已完成仿真兼容、相机挂载或 benchmark 集成。</p></div></section>
+<section class="section" id="checklist"><span class="secno">12 / QUALITY GATE</span><h2>评测前检查清单</h2><p class="small">可在本页勾选；勾选仅当前页面使用，不上传、不保存到服务器。勾选不代表系统已自动验证。</p><ul class="checklist">
+<li><label><input type="checkbox"><span>场景按结构族划分；同户型的改纹理/镜像/不同路线没有跨 train/dev/test。</span></label></li>
+<li><label><input type="checkbox"><span>所有种子流、最终文件哈希、资产版本、生成器/仿真器/算法/evo 版本已固定。</span></label></li>
+<li><label><input type="checkbox"><span>门与路线可通行；平滑后的轨迹没有撞墙/穿家具/瞬间传送；记录了拒绝原因。</span></label></li>
+<li><label><input type="checkbox"><span>相机内参、畸变、分辨率、基线/深度单位、传感器外参及色彩顺序通过合成点投影测试。</span></label></li>
+<li><label><input type="checkbox"><span>GT 是实际相机光心 T_world_camera；单位米、四元数 xyzw、旋转矩阵正交且 det=+1。</span></label></li>
+<li><label><input type="checkbox"><span>图像、GT、IMU 时间轴一致；无重复/倒序时间戳；采样时刻与输出延迟分开。</span></label></li>
+<li><label><input type="checkbox"><span>RGB-D 的 Z-depth/range、有效范围、无效值及配准说明明确；现实噪声不以理想深度冒充。</span></label></li>
+<li><label><input type="checkbox"><span>GT→GT、已知刚体变换、已知尺度扰动、受控时间偏移、故意缺帧测试的结果符合预期。</span></label></li>
+<li><label><input type="checkbox"><span>Mono / Stereo / RGB-D / VI 分榜；尺度对齐政策、区间、单位、关联阈值、pair 数已声明。</span></label></li>
+<li><label><input type="checkbox"><span>算法输入与 GT 隔离；测试时不改参数、不搜索最优时偏，不读取禁止的语义或地图先验。</span></label></li>
+<li><label><input type="checkbox"><span>全体预定 run 都有结果行；初始化、lost、reset、崩溃、超时有状态和原因，部分轨迹不“补齐”。</span></label></li>
+<li><label><input type="checkbox"><span>在线轨迹与最终优化轨迹分开；跨 reset 的地图坐标没有通过独立对齐掩盖。</span></label></li>
+<li><label><input type="checkbox"><span>同一场景条件对算法成对；重复 run 不当作独立场景；置信区间以场景族为簇。</span></label></li>
+<li><label><input type="checkbox"><span>固定硬件、线程、输入速率、实时截止期、超时/重试政策；单独计渲染与 SLAM 开销。</span></label></li>
+<li><label><input type="checkbox"><span>重复生成已核对：若不能字节一致，说明非确定性来源并用冻结观测文件进行比较。</span></label></li>
+<li><label><input type="checkbox"><span>有真实数据验证计划；结论措辞限定在已测传感器、运动、场景与难度范围。</span></label></li></ul></section>
+<section class="section" id="reality"><span class="secno">13 / LIMITATIONS</span><h2>随机户型能扩大覆盖，不能自动消除域差异</h2><p>它最适合回答“在已控制的几何、纹理、运动和噪声条件下，哪一种失败因素更敏感”，并提供回归测试。它不能单独证明机器人在真实住家、镜面玻璃、真实曝光与同步误差下同样可靠。</p><div class="grid2"><div class="card"><h3>可以较有把握地比较</h3><p>同一冻结输入上，某个代码/参数变化是否改善局部漂移、减少失跟，是否在重复纹理或明暗切换下出现退化。</p></div><div class="card"><h3>需要实测再下结论</h3><p>绝对落地精度、安全性、真实相机噪声鲁棒性、用户环境成功率，以及合成排行榜能否迁移到目标硬件。</p></div></div><p>逼真渲染、随机材质和更多场景数量都不是充分条件。应对照目标传感器的图像、噪声、曝光、运动与失败样本校准分布；真实数据用于外部检验，不能反向泄漏到已冻结测试集。</p><div class="callout good"><strong>最小可信结论的模板</strong><p>“在协议版本 X、传感器赛道 Y、冻结场景集合 Z、相同输入和硬件预算下，报告所有 run 的成功率，并在明确的有效轨迹范围内报告 ATE/RPE；该结论尚需目标机器人真实数据验证。”</p></div></section>
+<section class="section" id="sources"><span class="secno">14 / PRIMARY SOURCES</span><h2>核对过的一手资料</h2><p class="small">查阅日期：2026-10-29。链接用于追溯，不是离线阅读依赖。本文未复制整篇文档；实验规模、阈值、目录与 schema 是建议方案。软件接口随版本变化，正式实验须固定已验证版本。</p><ol class="sources">
+<li id="src1"><a href="https://jsturm.de/publications/data/sturm12iros.pdf" target="_blank" rel="noopener noreferrer">Sturm et al. · A Benchmark for the Evaluation of RGB-D SLAM Systems（IROS 2012）</a><small>作者托管论文；独立相机真值、ATE/RPE 与视觉 SLAM 评测思想。</small></li>
+<li id="src2"><a href="https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats" target="_blank" rel="noopener noreferrer">TUM RGB-D · File Formats</a><small>官方轨迹字段、时间戳、相机光心与深度文件说明。</small></li>
+<li id="src3"><a href="https://github.com/MichaelGrupp/evo/wiki/Metrics" target="_blank" rel="noopener noreferrer">evo 官方 Wiki · Metrics</a><small>SE(3)/Sim(3)/原点对齐、APE/RPE 与相对位姿配对。</small></li>
+<li id="src4"><a href="https://github.com/MichaelGrupp/evo" target="_blank" rel="noopener noreferrer">evo 官方仓库 · README</a><small>支持格式、结果导出与汇总；说明其不是特定数据集协议的逐项复刻。</small></li>
+<li id="src5"><a href="https://github.com/UZ-SLAMLab/ORB_SLAM3" target="_blank" rel="noopener noreferrer">ORB-SLAM3 官方仓库</a><small>传感器配置、EuRoC 执行与相机/IMU-body 真值差异。</small></li>
+<li id="src6"><a href="https://github.com/UZ-SLAMLab/ORB_SLAM3/blob/master/Calibration_Tutorial.pdf" target="_blank" rel="noopener noreferrer">ORB-SLAM3 · Calibration Tutorial</a><small>参考坐标系、光学轴方向、传感器外参与标定文件。</small></li>
+<li id="src7"><a href="https://projects.asl.ethz.ch/datasets/euroc-mav/" target="_blank" rel="noopener noreferrer">ETH ASL · EuRoC MAV Dataset</a><small>现行官方页面；双目/IMU、标定、真值与公开已知限制。</small></li>
+<li id="src8"><a href="https://aihabitat.org/docs/habitat-sim/habitat_sim.nav.PathFinder.html" target="_blank" rel="noopener noreferrer">Habitat-Sim · PathFinder API</a><small>NavMesh 路径、采样、可达连通岛与障碍距离。</small></li>
+<li id="src9"><a href="https://isaac-sim.github.io/IsaacLab/main/source/concepts/sensors/camera.html" target="_blank" rel="noopener noreferrer">Isaac Lab · Camera</a><small>RGB 与 depth 输出语义、光轴深度和光线距离的区别。</small></li>
+<li id="src10"><a href="https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_camera.html" target="_blank" rel="noopener noreferrer">Isaac Sim · Camera Sensors</a><small>当前相机接口、annotators、采样频率与版本迁移；使用时固定版本。</small></li>
+<li id="src11"><a href="https://raw.githubusercontent.com/MichaelGrupp/evo/master/evo/cli/rpe_parser.py" target="_blank" rel="noopener noreferrer">evo 官方源码 · RPE CLI parser</a><small>核对 delta_unit、all_pairs、pairs_from_reference、delta_tol 和时间关联参数。</small></li>
+<li id="src12"><a href="https://raw.githubusercontent.com/MichaelGrupp/evo/master/evo/cli/ape_parser.py" target="_blank" rel="noopener noreferrer">evo 官方源码 · APE CLI parser</a><small>核对 pose_relation、align、correct_scale、t_max_diff 与 save_results。</small></li>
+</ol></section>
+</main></div><footer class="wrap">Wizard / 随机户型与 VSLAM 评测方法指南 · 2026-10-29 · 离线可读，未部署网站，未运行基准实验。<a href="#top">返回顶部 ↑</a></footer>
+
+<script id="benchmark-json" type="application/json">{
+  "schema": "proposed-floorplan-vslam/v0.1",
+  "status": "illustrative_not_frozen",
+  "benchmark_id": "wizard-vslam-pilot",
+  "split": {
+    "name": "test",
+    "scene_family_id": "topology-0042",
+    "scene_id": "layout-0042",
+    "split_manifest_sha256": null
+  },
+  "seeds": {
+    "topology": 42,
+    "appearance": 1007,
+    "trajectory": 2003,
+    "dynamics": 3001,
+    "sensor_noise": 4002,
+    "algorithm_run": 5001
+  },
+  "assets": {
+    "scene_file": "scene.glb",
+    "scene_sha256": null,
+    "asset_pack_revision": "TO_BE_PINNED"
+  },
+  "environment": {
+    "generator_commit": "TO_BE_PINNED",
+    "simulator_build": "TO_BE_PINNED",
+    "renderer_config_sha256": null,
+    "algorithm_commit": "TO_BE_PINNED",
+    "evo_version": "TO_BE_PINNED",
+    "hardware_record": "hardware.json"
+  },
+  "frames": {
+    "length_unit": "m",
+    "world_axes": "right_handed_Z_up",
+    "body_axes": "x_forward_y_left_z_up",
+    "camera_axes": "x_right_y_down_z_forward",
+    "pose_convention": "T_world_camera",
+    "quaternion_order": "xyzw",
+    "T_body_camera": [
+      [
+        0,
+        0,
+        1,
+        0.2
+      ],
+      [
+        -1,
+        0,
+        0,
+        0.0
+      ],
+      [
+        0,
+        -1,
+        0,
+        0.8
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "sensor": {
+    "track": "rgbd",
+    "width": 640,
+    "height": 480,
+    "fps": 30,
+    "model": "pinhole",
+    "K": [
+      [
+        525,
+        0,
+        319.5
+      ],
+      [
+        0,
+        525,
+        239.5
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "distortion": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "shutter": "global",
+    "exposure_s": 0.005,
+    "depth_semantics": "optical_axis_Z",
+    "depth_unit": "m",
+    "depth_range_m": [
+      0.2,
+      8.0
+    ],
+    "depth_registered_to": "rgb_camera",
+    "imu_enabled": false,
+    "noise_profile": "ideal_control_v1"
+  },
+  "timing": {
+    "internal_unit": "integer_ns",
+    "export_unit": "s",
+    "export_epoch_s": 1700000000,
+    "epoch_is_synthetic": true,
+    "timestamp_reference": "exposure_midpoint",
+    "rgb_depth_offset_ns": 0,
+    "estimated_pose_time": "input_image_timestamp"
+  },
+  "trajectory": {
+    "family": "closed_loop",
+    "duration_s": 120,
+    "max_speed_mps": 0.5,
+    "max_yaw_rate_degps": 45,
+    "robot_radius_m": 0.22,
+    "clearance_margin_m": 0.08,
+    "poses_file": "groundtruth_camera.tum",
+    "actual_pose_not_command": true
+  },
+  "evaluation": {
+    "reference_frame": "rgb_camera",
+    "trajectory_kind": "online",
+    "association": "nearest_time",
+    "max_time_diff_s": 0.001,
+    "fit_alignment": "one_global_SE3_on_valid_matches",
+    "allow_scale_fit": false,
+    "rpe": {
+      "delta": 1.0,
+      "unit": "m",
+      "pairs_from": "reference",
+      "all_pairs": true,
+      "relative_delta_tolerance": 0.1,
+      "cross_lost_gap_pairs": false
+    },
+    "failure_policy": {
+      "min_tracking_ratio": 0.95,
+      "max_continuous_gap_s": 2.0,
+      "must_reach_final_window": true,
+      "final_window_s": 1.0,
+      "crash_timeout_counts_as_failure": true,
+      "partial_ate_label": "conditional_on_observed_poses",
+      "primary_aggregation": "scene_macro_then_paired_by_scene"
+    },
+    "trajectory_sha256": null,
+    "sensor_bundle_sha256": null
+  }
+}</script>
+<script>
+'use strict';
+const raw=document.getElementById('benchmark-json').textContent.trim();
+document.getElementById('download-json').addEventListener('click',()=>{const blob=new Blob([raw+'\n'],{type:'application/json;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='proposed-vslam-benchmark.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);});
+document.getElementById('copy-json').addEventListener('click',async()=>{const s=document.getElementById('copy-status');try{await navigator.clipboard.writeText(raw);s.textContent='已复制示例 JSON';}catch(e){const range=document.createRange();range.selectNodeContents(document.getElementById('manifest-code'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);s.textContent='已选中 JSON，请按 Ctrl/Cmd+C 复制';}});
+</script>
+<p id="archive-note" class="archive-note">资料来源于既有项目归档。原始文件清单、历史大小和校验值描述归档源文件；本站部分视频为保留完整时长和画面的兼容播放副本。</p></body></html>
