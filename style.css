@@ -137,3 +137,8 @@ footer a { color: var(--muted); }
   .video-selection { margin-top: 42px; }
   .video-selection-grid { grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* Full-width asset screenshots stay legible on desktop and fit narrow screens. */
+.asset-gallery { display: grid; gap: 24px; }
+.asset-gallery a { display: block; min-width: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #080809; }
+.asset-gallery img { display: block; width: 100%; height: auto; }
